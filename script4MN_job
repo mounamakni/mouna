@@ -1,0 +1,66 @@
+######################################################################################################
+#### THIS IS A TEMPLATE FILE FOR spark4mn 2.0.1. DO NOT USE THIS TEMPLATE WITH ANY OTHER VERSION. ####
+######################################################################################################
+
+### JOB PARAMETERS: ###
+  ## OPTIONAL: ##
+     JOB_NAME="bovwDictionary"        # Default: Resource file name. Name of the job as seen via cluster's resource manager.
+    # WORKING_DIR="[PATH]"       # Default: Current working directory. User must have R/W/X. Main working directory for the job.
+    # TMP_DIR="[PATH]"           # Default: Ignored: TMPDIR is used. User must have R/W/X. Main temporal directory for the job.
+     WALLCLOCK=30 # Minutes. # Default: 15. Minimum: 1. Maximum allowed execution time.
+    # NEAR_NODES="[BOOL]"        # Default: false. Should the nodes be connected to the minimum number of switches?
+    # RESERVATION="[STRING]"     # Default: Ignored: no reservation. Specific machine reservation.
+    # QUEUE="[STRING]"           # Default: Ignored: default queue. Specific queue.
+    # X11="[BOOL]"               # Default: false. Needed if the job uses graphics, otherwise the job will fail.
+
+
+### SPARK_PARAMETERS: ###
+  ## OPTIONAL: ##
+    # SPARK_VERSION="[STRING]"                           # Default: Default module vesion. Must match with a proper Spark module version.
+    	SPARK_NNODES=32                                   # Default: 1. Minimum: 1. It will be 1 more node to host master services.
+        SPARK_NWORKERS_PER_NODE=2                        # Default: It depends on resource distribution. Minimum: 1.
+        SPARK_NCORES_PER_WORKER=8                        # Default: It depends on resource distribution. Minimum: 1.
+        EXCLUSIVE_SPARK_WORKER_MEM_SIZE=12000 # Megabytes.     # Default: It depends on resource distribution. Minimum: 1.
+    # SPARK_WORKER_AFFINITY="[CORE | SOCKET | NODE | NONE]" # Default: NONE.
+    # SPARK_NETWORK_INTERFACE="[IB | ETH]"                  # Default: IB. 40 Gb/s Infiniband, and 1 Gb/s full duplex Ethernet.
+
+
+### DFS PARAMETERS: ###
+  ## OPTIONAL: ##
+    # DFS_MODULE="[HDFS | NONE]" # Default: NONE.
+  
+  ## OPTIONAL, BUT DISABLED IF DFS_MODULE="NONE": ##
+    # DFS_SHARE_NODES="[BOOL]"                            # Default: false. Will DFS share nodes with Spark?
+    # DFS_NNODES=[INT]                                    # Default: SPARK_NNODES. Minimum: 1. It will be 1 more node to host master services.
+    # DFS_NWORKERS_PER_NODE=[INT]                         # Default: It depends on resource distribution. Minimum: 1.
+    # DFS_NCORES_PER_WORKER=[INT]                         # Default: It depends on resource distribution. Minimum: 1.
+    # DFS_WORKER_MEM_SIZE=[INT] # Megabytes.              # Default: It depends on resource distribution. Minimum: 1.
+    # DFS_WORKER_AFFINITY="[CORE | SOCKET | NODE | NONE]" # Default: NONE.
+    # DFS_NETWORK_INTERFACE="[IB | ETH]"                  # Default: IB. 40 Gb/s Infiniband, and 1 Gb/s full duplex Ethernet.
+
+
+### PROBLEM PARAMETERS: ###
+  ## COMPULSORY: ##
+    # DOMAIN_JAR_[[1-9]+]="[PATH]"           # JAR file for each main problem to be executed.
+    # DOMAIN_ENTRY_POINT_[[1-9]+]="[STRING]" # Entry class for each main problem to be executed.
+	DOMAIN_JAR_1="/home/bsc31/bsc31004/simple-project-1.0.jar"	# JAR file for main problem to be executed.
+	DOMAIN_ENTRY_POINT_1="sparkBoVW.Main" 						# Entry class for main problem to be executed.  
+
+  ## OPTIONAL: ##
+      ADDITIONAL_MODULES="OPENCV/2.4.9" 								# Default: Ignored. If additional modules are needed.
+      ADDITIONAL_CLASSPATH="/home/bsc31/bsc31004/json-simple-1.1.1.jar"    
+  
+
+    # ADDITIONAL_MODULES="[[NAME | NAME/VERSION], ...]" # Default: Ignored. If additional modules are needed.
+    # ADDITIONAL_CLASSPATH="[PATH:PATH: ...]"           # Default: Ignored. If additional classes are needed. Has precedence over ADDITIONAL_MODULES.
+    # PROLOG_JAR_[[1-9]+]="[PATH]"                      # Default: Ignored. JAR file for each program to be executed before the main problems.
+    # EPILOG_JAR_[[1-9]+]="[PATH]"                      # Default: Ignored. JAR file for each program to be executed after the main problems.
+    # PROLOG_ENTRY_POINT_[[1-9]+]="[STRING]"            # Default: Ignored. Entry class for each program to be executed before the main problems.
+    # EPILOG_ENTRY_POINT_[[1-9]+]="[STRING]"            # Default: Ignored. Entry class for each program to be executed after the main problems.
+    # PROLOG_PARAMETERS_[[1-9]+]="[STRING, ...]"        # Default: Ignored. Parameters for each prologue.
+    # DOMAIN_PARAMETERS_[[1-9]+]="[STRING, ...]"        # Default: Ignored. Parameters for each domain.
+    
+     DOMAIN_PARAMETERS_1="/gpfs/home/bsc31/bsc31004/data/input, 0.8, 150, 15, 1, random, 200, -0.4013, 256, false, true"
+      # directory_path_for_input_output_data, training_fraction, kMeans_clusters, kMeans_terations, kMeansParallelRuns, kMeansInitMode, SVM_iterations, SVM_threshold, imageSize, Gaussian_Blur, colour
+
+   # EPILOG_PARAMETERS_[[1-9]+]="[STRING, ...]"        # Default: Ignored. Parameters for each epilogue.
